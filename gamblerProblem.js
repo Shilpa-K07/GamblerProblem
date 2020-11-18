@@ -1,1 +1,2 @@
-console.log("Welcome To Gambler Problem !");
+var stakePerDay = 100;
+var betPerGame = 1;
