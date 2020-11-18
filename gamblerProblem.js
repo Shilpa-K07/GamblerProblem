@@ -73,5 +73,19 @@ var stakeForMonth = (callBack) => {
         console.log(key + " : " + lostDict[key]);
     } 
  }
- 
+
+ /**
+  * @description find luckiest and unluckiest day
+  */
+var findLuckiestAndUnLuckiestDay = () => {
+    console.log("\nLuckiest day is : ")
+    for(var key in wonDict){
+        console.log(key);
+    }
+    console.log("\nUnLuckiest day is : ")
+    for(var key in lostDict){
+        console.log(key);
+    }
+}
 stakeForMonth(displayWonAndLostDays);
+findLuckiestAndUnLuckiestDay();
