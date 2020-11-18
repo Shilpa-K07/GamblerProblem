@@ -1,7 +1,6 @@
 var stakePerDay = 100;
 var betPerGame = 1;
-var wonDict = {};
-var lostDict = {};
+
 const WIN = 1;
 const MAX_DAY = 20;
 const INITIAL_STAKE = 100;
@@ -44,11 +43,15 @@ var calculateStake = (callBack) => {
  * Calculate total amount won or lost after 20 days
  * @var wonDict stores the days won as key and  stake as value
  * @var lostDict store the days lost as key and stake as value
+ * @method callBack calls @method displayWonAndLostDays
  */
 
 var stakeForMonth = (callBack) => {
+    var wonDict = {};
+    var lostDict = {};
     var totalAmount = 0;
     var currentDay = 1;
+
     while(currentDay <= MAX_DAY){
         calculateStake(makeBet);
         totalAmount += stakePerDay;
@@ -57,13 +60,17 @@ var stakeForMonth = (callBack) => {
         stakePerDay = 100;
     }
     console.log("Total amount won/lost : "+totalAmount);
-    callBack();
+    callBack(wonDict, lostDict);
+    findLuckiestAndUnLuckiestDay(wonDict, lostDict);
+
+    if(Object.keys(wonDict).length > Object.keys(lostDict).length)
+        stakeForMonth(displayWonAndLostDays);
 }
 
 /**
  * @description display won days and lost days with amount
  */
- var displayWonAndLostDays = () => {
+ var displayWonAndLostDays = (wonDict, lostDict) => {
     console.log("\nDisplay won days and amount")
     for(var key in wonDict) {
         console.log(key + " : " + wonDict[key]);
@@ -77,7 +84,7 @@ var stakeForMonth = (callBack) => {
  /**
   * @description find luckiest and unluckiest day
   */
-var findLuckiestAndUnLuckiestDay = () => {
+var findLuckiestAndUnLuckiestDay = (wonDict, lostDict) => {
     console.log("\nLuckiest day is : ")
     for(var key in wonDict){
         console.log(key);
@@ -88,4 +95,4 @@ var findLuckiestAndUnLuckiestDay = () => {
     }
 }
 stakeForMonth(displayWonAndLostDays);
-findLuckiestAndUnLuckiestDay();
+
