@@ -1,8 +1,7 @@
 var stakePerDay = 100;
 var betPerGame = 1;
-const win = 1;
-const loose = 0;
-
+const WIN = 1;
+const MAX_DAY = 20;
 /**
  * @method randomValue generates number 0 or 1
  */
@@ -23,7 +22,7 @@ const minimumStake = () => (stakePerDay - (0.5 * stakePerDay));
  */
 var makeBet = () => {
     var randomNumber = randomValue();
-    randomNumber == win ? stakePerDay += betPerGame : stakePerDay -= betPerGame;
+    randomNumber == WIN ? stakePerDay += betPerGame : stakePerDay -= betPerGame;
 }
 
 /**
@@ -37,4 +36,20 @@ var calculateStake = (callBack) => {
         callBack();
     }
 }
-calculateStake(makeBet);
+
+/**
+ * Calculate total amount won or lost after 20 days
+ */
+var stakeForMonth = () => {
+    var totalAmount = 0;
+    var currentDay = 1;
+    while(currentDay <= MAX_DAY){
+        calculateStake(makeBet);
+        totalAmount += stakePerDay;
+        currentDay ++;
+        stakePerDay = 100;
+    }
+    console.log("Total amount won/lost : "+totalAmount);
+}
+
+stakeForMonth();
