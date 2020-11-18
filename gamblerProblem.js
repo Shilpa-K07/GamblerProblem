@@ -1,9 +1,11 @@
+console.log("Welcome To Gambler Problem !");
+
 var stakePerDay = 100;
 var betPerGame = 1;
-
 const WIN = 1;
 const MAX_DAY = 20;
 const INITIAL_STAKE = 100;
+
 /**
  * @method randomValue generates number 0 or 1
  */
@@ -57,8 +59,9 @@ var stakeForMonth = (callBack) => {
         totalAmount += stakePerDay;
         stakePerDay > INITIAL_STAKE ? wonDict[currentDay] = stakePerDay : lostDict[currentDay] = stakePerDay;
         currentDay ++;
-        stakePerDay = 100;
+        stakePerDay = INITIAL_STAKE;
     }
+
     console.log("Total amount won/lost : "+totalAmount);
     callBack(wonDict, lostDict);
     findLuckiestAndUnLuckiestDay(wonDict, lostDict);
